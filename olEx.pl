@@ -1,19 +1,15 @@
-% distance/3
-% distance((X1,Y1), (X2,Y2), D) is true if D is the Euclidean
-% distance between point (X1,Y1) and (X2,Y2).
+
 
 distance((X1,Y1), (X2,Y2), D) :-
     DX is X1 - X2,
     DY is Y1 - Y2,
     D is sqrt(DX*DX + DY*DY).
 
-% square/2
-% square(N, Char) prints an N x N square of Char.
 
 square(N, Char) :-
     square_rows(N, N, Char).
 
-% square_rows/3 prints N rows, each of length Cols
+
 square_rows(0, _, _).
 square_rows(Rows, Cols, Char) :-
     square_row(Cols, Char),
@@ -21,15 +17,14 @@ square_rows(Rows, Cols, Char) :-
     Rows1 is Rows - 1,
     square_rows(Rows1, Cols, Char).
 
-% square_row/2 prints one row of Cols characters
+
 square_row(0, _).
 square_row(Cols, Char) :-
     write(Char),
     Cols1 is Cols - 1,
     square_row(Cols1, Char).
 	
-% square/2 using between/3
-% square(N, Char) prints an N x N square of Char.
+
 
 square(N, Char) :-
     between(1, N, _),             % loop over rows
@@ -41,8 +36,7 @@ square(N, Char) :-
 square(_, _).                     % succeed after all backtracking
 
 
-% fibonacci/2
-% fibonacci(N, F) succeeds if F is the Nth Fibonacci number.
+
 
 fibonacci(0, 1).              % base case: F0 = 1
 fibonacci(1, 1).              % base case: F1 = 1
@@ -55,9 +49,7 @@ fibonacci(N, F) :-
     F is F1 + F2.
 
 
-% element_at/3
-% element_at(List, N, Elem) is true if Elem is the Nth element of List.
-% Indexing starts at 1.
+
 
 element_at([Elem|_], 1, Elem).
 element_at([_|Tail], N, Elem) :-
@@ -75,13 +67,13 @@ X = a.
 false.
 
 
-% Base predicate to compute the mean
+
 mean(List, Mean) :-
     sum_and_length(List, Sum, Length),
     Length > 0,
     Mean is Sum / Length.
 
-% Helper predicate to compute the sum and length of the list
+
 sum_and_length([], 0, 0).
 sum_and_length([H|T], Sum, Length) :-
     sum_and_length(T, Sum1, Length1),
@@ -89,11 +81,11 @@ sum_and_length([H|T], Sum, Length) :-
     Length is Length1 + 1.
 	
 
-% Case 1: If lower > upper, return an empty list
+
 range(Low, High, []) :-
     Low > High.
 
-% Case 2: If lower =< upper, build the range recursively
+
 range(Low, High, [Low|Rest]) :-
     Low =< High,
     Next is Low + 1,
@@ -130,38 +122,38 @@ likes(alice, apple).
 likes(bob, banana).
 likes(charlie, apple).
 
-% 1. Who likes the same fruit as someone else? (using unification)
+
 same_taste(Person1, Person2) :-
     likes(Person1, Fruit),
     likes(Person2, Fruit),
     Person1 \= Person2.  % Not the same person (unifiable but different)
 
-% 2. Check if two people like the same fruit but are the same person (demonstrate ==)
+
 same_person_same_taste(Person1, Person2) :-
     likes(Person1, Fruit),
     likes(Person2, Fruit),
     Person1 == Person2.  % Strict identity
 
-% 3. Fail when comparing with \== (not strictly identical)
+
 different_individuals(Person1, Person2) :-
     Person1 \== Person2.
 
-% 4. Assign fruit to person if not already matched (using =)
+
 match_fruit(Person, Fruit) :-
     likes(Person, F),
     Fruit = F.  % Unification assigns Fruit to matched value
 
 
 
-% Query Alice and Charlie both like apple, and they are not the same person.
+
 same_taste(alice, charlie).
 true.
-% Uses == to check for identity.
+
 same_person_same_taste(alice, alice).
-% Although they like the same fruit, alice \== charlie, so this fails.
+
 same_person_same_taste(alice, charlie).
 false.
-% Uses \== to check they’re not the same exact person.
+
 different_individuals(bob, charlie).
 
 
@@ -189,11 +181,11 @@ interact :-
 
 
 
-test_term(john).           % atom
-test_term(42).             % integer
-test_term(3.14).           % float
-test_term(X).              % variable (unbound)
-test_term(name(john)).     % compound term
+test_term(john).          
+test_term(42).             
+test_term(3.14).           
+test_term(X).              
+test_term(name(john)).     
 
 check_atom(X) :-
     atom(X),
