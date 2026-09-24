@@ -1,24 +1,24 @@
-% Base case: The length of an empty list is 0
+
 list_length([], 0).
 
-% Recursive case: count head, then recurse on the tail
+
 list_length([_ | Tail], Length) :-
     list_length(Tail, TailLength),
     Length is TailLength + 1.
 	
 	
-% Base case: Only one element, it's the maximum
+
 max_in_list([X], X).
 
-% Recursive case: Compare head with max of tail
+
 max_in_list([H | T], Max) :-
     max_in_list(T, MaxTail),
     ( H >= MaxTail -> Max = H ; Max = MaxTail ).
 	
-% Base case: Only one element, it's the maximum
+
 max_in_list([X], X).
 
-% Recursive case: Compare head with max of tail
+
 max_in_list([H | T], Max) :-
     max_in_list(T, MaxTail),
     ( H >= MaxTail -> Max = H ; Max = MaxTail ).
